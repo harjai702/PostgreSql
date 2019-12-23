@@ -1,0 +1,39 @@
+package postress;
+import java.sql.Connection;
+import java.util.*;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.io.*;
+public class emp {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		 try {
+			 Calendar cal = Calendar.getInstance();
+			 Connection conn = DriverManager.getConnection(
+		                "jdbc:postgresql://localhost:9999/javaprac", "postgres", "harjai702");
+			 String str2="Harsh Harjai";
+			 Date date = new Date();
+			 String str=date.toString();
+			 Statement stmt=conn.createStatement();
+			 PreparedStatement pstmt=conn.prepareStatement("insert into login_entry(name,time) values(?,?)");
+			 pstmt.setString(1,str2);
+			 pstmt.setString(2,str);
+			 pstmt.executeUpdate();
+			 String sq1="select * from login_entry";
+			 ResultSet rs=stmt.executeQuery(sq1);
+			 while(rs.next()) {
+				 System.out.println(rs.getString("name")+" "+rs.getString("time"));
+			 }
+			 rs.close();
+			 stmt.close();
+			 conn.close();  
+	        } catch (Exception e) {
+	           System.out.println(e);
+	           }
+
+	    }
+	}

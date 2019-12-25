@@ -1,0 +1,31 @@
+package postress;
+import java.sql.Connection;
+import java.util.*;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.io.*;
+public class emp {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		 try {
+			 Connection conn = DriverManager.getConnection(
+		                "jdbc:postgresql://localhost:9999/javaprac", "postgres", "harjai702");
+			 Scanner scan=new Scanner(System.in);
+			 String str2=new String();
+			 str2=scan.nextLine();
+			 Statement stmt=conn.createStatement();
+			 PreparedStatement pstmt=conn.prepareStatement("insert into exp1(name) values(?)");
+			 pstmt.setString(1,str2);
+			 pstmt.executeUpdate();
+			 stmt.close();
+			 conn.close();  
+	        } catch (Exception e) {
+	           System.out.println(e);
+	           }
+
+	    }
+	}
